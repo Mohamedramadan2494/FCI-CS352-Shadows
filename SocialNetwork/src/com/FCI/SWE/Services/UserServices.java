@@ -102,16 +102,16 @@ public class UserServices {
 	}
 	@POST
 	@Path("/AddfriendService")
-	public String loginService(@FormParam("uname") String uname) {
+	public String addfriend(@FormParam("name") String name,@FormParam("uname") String uname) {
 		JSONObject object = new JSONObject();
 		boolean user = UserEntity.getUser(uname);
+		System.out.println(user+" "+uname);
 		if (user == false) {
 			object.put("Status", "Failed");
-
+			System.out.println(user+" "+uname);
 		} else {
-			User u=null;
-			u=u.getCurrentActiveUser();
-			Friend F = new Friend(u.getName(),uname , "waiting");
+			
+			Friend F = new Friend(name,uname , "waiting");
 			F.saveFriend();
 			
 			object.put("Status", "OK");
@@ -125,11 +125,10 @@ public class UserServices {
 	}
 	@POST
 	@Path("/requestService")
-	public String requestService(@FormParam("uname") String uname) {
+	public String requestService(@FormParam("name") String name,@FormParam("unamee") String unamee) {
 		JSONObject object = new JSONObject();
-		User u=null;
-		u=u.getCurrentActiveUser();
-		boolean friend=Friend.request(u.getName(),uname,"accept");
+		boolean friend=Friend.request(name,unamee,"accept");
+		//System.out.println(name+friend);
 		if (friend == false) {
 			object.put("Status", "Failed");
 
@@ -149,11 +148,9 @@ public class UserServices {
 	}
 	@POST
 	@Path("/rejectService")
-	public String rejectService(@FormParam("unamee") String unamee) {
+	public String rejectService(@FormParam("name") String name,@FormParam("unamee") String unamee) {
 		JSONObject object = new JSONObject();
-		User u=null;
-		u=u.getCurrentActiveUser();
-		boolean friend=Friend.request(u.getName(),unamee,"reject");
+		boolean friend=Friend.request(name,unamee,"reject");
 		if (friend == false) {
 			object.put("Status", "Failed");
 

@@ -1,4 +1,4 @@
-package com.FCI.SWE.ServicesModels;
+	package com.FCI.SWE.ServicesModels;
 
 import java.util.List;
 
@@ -8,9 +8,28 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-
+/**
+ * <h1>Friend class</h1>
+ * <p>
+ * This class will act as a model for friend, it will holds friends request
+ * </p>
+ *
+ * @author Mohamed Ramadan
+ * @version 1.0
+ * @since 2014-02-12
+ */
 public class Friend {
 String from,to,status;
+/**
+ * Constructor accepts request data
+ * 
+ * @param f
+ *            request sender
+ * @param t
+ *           request receiver
+ * @param s
+ *         request status 
+ */
 
 
 public Friend(String f, String t, String s) {
@@ -35,7 +54,19 @@ public String getStatus() {
 	return status;
 }
 
-
+/**
+ * 
+ * This static method will form request entity class using users names
+ * status to identify status of request
+ * 
+ * @param to
+ *           request receiver           
+ * @param from
+ *         request sender   
+ * @param s
+ *            request status
+ * @return Constructed user entity
+ */
 public static boolean request(String to,String from,String s) {
 	DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
@@ -76,7 +107,11 @@ public static boolean request(String to,String from,String s) {
 	
 }*/
 
-
+/**
+ * This method will be used to save request object in datastore
+ * 
+ * @return boolean if request is saved correctly or not
+ */
 public Boolean saveFriend() {
 	DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();

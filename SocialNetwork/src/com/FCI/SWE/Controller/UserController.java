@@ -119,7 +119,7 @@ public class UserController {
 	public String response(@FormParam("uname") String uname,
 			@FormParam("email") String email, @FormParam("password") String pass) {
 
-		String serviceUrl = "http://localhost:8888/rest/RegistrationService";
+		String serviceUrl = "http://swe-web.appspot.com/rest/RegistrationService";
 		String urlParameters = "uname=" + uname + "&email=" + email
 				+ "&password=" + pass;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -164,7 +164,7 @@ public class UserController {
 		String urlParameters = "uname=" + uname + "&password=" + pass;
 
 		String retJson = Connection.connect(
-				"http://localhost:8888/rest/LoginService", urlParameters,
+				"http://swe-web.appspot.com/rest/LoginService", urlParameters,
 				"POST", "application/x-www-form-urlencoded;charset=UTF-8");
 
 		JSONParser parser = new JSONParser();
@@ -197,9 +197,11 @@ public class UserController {
 	@Path("/responses")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String response(@FormParam("uname") String uname) {
-
-		String serviceUrl = "http://localhost:8888/rest/AddfriendService";
-		String urlParameters = "uname=" + uname ;
+	
+		User u=User.getCurrentActiveUser();
+		//System.out.println(User.getCurrentActiveUser().getName());
+		String serviceUrl = "http://swe-web.appspot.com/rest/AddfriendService";
+		String urlParameters = "name=" + u.getName()+ "&uname=" + uname ;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
 		JSONParser parser = new JSONParser();
@@ -232,15 +234,15 @@ public class UserController {
 	@POST
 	@Path("/responsess")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String request(@FormParam("uname") String uname) {
-
-		String serviceUrl = "http://localhost:8888/rest/requestService";
-		String urlParameters = "uname=" + uname ;
+	public String request(@FormParam("uname") String unamee) {
+		User u=User.getCurrentActiveUser();
+		System.out.println(u.getName());
+		String serviceUrl = "http://swe-web.appspot.com/rest/requestService";
+		String urlParameters = "name=" + u.getName()+ "&unamee=" + unamee ;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
 		JSONParser parser = new JSONParser();
 		Object obj;
-		
 	
 		try {
 			// System.out.println(retJson);
@@ -271,8 +273,10 @@ public class UserController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String reject(@FormParam("unamee") String unamee) {
 
-		String serviceUrl = "http://localhost:8888/rest/rejectService";
-		String urlParameters = "unamee=" + unamee ;
+		User u=User.getCurrentActiveUser();
+		System.out.println(u.getName());
+		String serviceUrl = "http://swe-web.appspot.com/rest/rejectService";
+		String urlParameters = "name=" + u.getName()+ "&unamee=" + unamee ;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
 		JSONParser parser = new JSONParser();
